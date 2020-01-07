@@ -1,5 +1,5 @@
 //Тоглогчын ээлжийг хадгалах хувьсагч, 1р тоглогчыг 0, 2р тоглогчыг 1 гэж тэмдэглэнэ.
-var activePlayer = 1;
+var activePlayer = 0;
 //Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
 var scores = [0, 0];
 //Тоглогчын одоогийн авсан оноог хадгалах хувьсагч
@@ -22,13 +22,38 @@ document.getElementById("current-1").textContent = "0";
 
 var diceDom = document.querySelector(".dice");
 diceDom.style.display = "none";
-document
-  .querySelector(".btn-roll")
-  .addEventListener("click", function rollDice() {
-    var diceNumber = Math.floor(Math.random() * 6) + 1;
-    diceDom.style.display = "block";
-    diceDom.src = "dice-" + diceNumber + ".png";
-    //alert("Шоо буулаа : " + diceNumber);
-  });
+//Шоог шидэх эвент листенер
+document.querySelector(".btn-roll").addEventListener("click", function() {
+  //1-6 доторх санамсаргүй тоог авна
+  var diceNumber = Math.floor(Math.random() * 6) + 1;
+  //Шооны зургийг вэб дээр гаргах
+  diceDom.style.display = "block";
+  //Буусан санамсаргүй тоонд харгалзах шооны зургийг вэбд харуулах
+  diceDom.src = "dice-" + diceNumber + ".png";
+  //Буусан тоо нь 1с ялгаатай бол идэвхтэй тоглогчын ээлжийн оноог нэмэгдүүлнэ
+  if (diceNumber !== 1) {
+    //1-с ялгаатай тоо бууна. Буусан тоог тоглогчын оноон дээр нэмнэ
+    roundScore = roundScore + diceNumber;
+    document.getElementById("current-" + activePlayer).textContent = roundScore;
+  } else {
+    //1 буусан тол тоглогчын ээлж солигдоно.
+    //Энэ тоглогчын ээлжиндээ цуглуулсан оноог 0 болгоно
+    roundScore = 0;
+    document.getElementById("current-" + activePlayer).textContent = "0";
+    //Хэрэв идэвхтэй тоглогч нь 0 байвал идэвхтэй тоглогчыг 1 болгох
+    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+    //Улаан цэгийг шилжүүлэх
+    document.querySelector(".player-0-panel").classList.toggle("active");
+    document.querySelector(".player-1-panel").classList.toggle("active");
+    //Шоог түр алга болгох
+    diceDom.style.display = "none";
+    //alert("Таны хаясан шоо: " + diceNumber + " буулаа.");
+  }
+  //alert("Шоо буулаа : " + diceNumber);
+});
+
+document.querySelector(".btn-hold").addEventListener("click", function() {
+  alert("ta hold darlaa");
+});
 
 console.log("Шоо :" + diceNumber);
