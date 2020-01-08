@@ -71,7 +71,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     document.getElementById("score-" + activePlayer).textContent =
       scores[activePlayer];
     //Уг тоглогч хожсон эсэхийг шалгах (оноо нь 100с их эсэх)
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       //Тоглоомыг дууссан төлөвт оруулна
       isNewGame = false;
       document.getElementById("name-" + activePlayer).textContent = "WINNER";
