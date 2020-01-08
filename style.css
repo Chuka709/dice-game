@@ -86,6 +86,10 @@ body {
   right: 10px;
 }
 
+.active .player-score {
+  font-weight: 300;
+}
+
 .player-current-box {
   background-color: #eb4d4d;
   color: #fff;
